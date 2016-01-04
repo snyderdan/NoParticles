@@ -1,0 +1,9 @@
+name: NoParticles
+main: com.dsnyder.noparticles.NoParticles
+version: 1.1.0
+author: Dan Snyder
+description: A simple plugin that stops particle effects associated with potions
+commands:
+  noparticles:
+    description: Main command for NoParticles
+    usage: /noparticles [subcommand] ...
