@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -79,7 +80,7 @@ public class ConsumerListener implements Listener {
 		} 
 		// check if there is an enabled mobs configuration section
 		if (!config.contains(CONFIG_ENABLED_MOBS) || !(config.isConfigurationSection(CONFIG_ENABLED_MOBS))) {
-			System.out.println("No configuration file loaded - mobs disabled");
+			Bukkit.getServer().getConsoleSender().sendMessage("No configuration file loaded - mobs disabled");
 			config.createSection(CONFIG_ENABLED_MOBS);
 			config.getConfigurationSection(CONFIG_ENABLED_MOBS).set("allmobs", false);
 			try {
@@ -95,7 +96,7 @@ public class ConsumerListener implements Listener {
 		
 		for (String key : mobs.getKeys(false)) {
 			
-			key = key.toUpperCase();
+			String ukey = key.toUpperCase();
 			
 			if (key.equalsIgnoreCase("allmobs")) {
 				if (mobs.getBoolean(key)) {
@@ -116,17 +117,17 @@ public class ConsumerListener implements Listener {
 			} else if (key.equalsIgnoreCase("hostilemobs")) {
 				if (mobs.getBoolean(key)) enabledEntities.addAll(supportedHostileMobs);
 				else enabledEntities.removeAll(supportedHostileMobs);
-			} else if (supportedPassiveMobs.contains(EntityType.valueOf(key))) {
-				if (mobs.getBoolean(key)) enabledEntities.add(EntityType.valueOf(key));
-				else enabledEntities.remove(EntityType.valueOf(key));
-			} else if (supportedNeutralMobs.contains(EntityType.valueOf(key))) {
-				if (mobs.getBoolean(key)) enabledEntities.add(EntityType.valueOf(key));
-				else enabledEntities.remove(EntityType.valueOf(key));
-			} else if (supportedHostileMobs.contains(EntityType.valueOf(key))) {
-				if (mobs.getBoolean(key)) enabledEntities.add(EntityType.valueOf(key));
-				else enabledEntities.remove(EntityType.valueOf(key));
+			} else if (supportedPassiveMobs.contains(EntityType.valueOf(ukey))) {
+				if (mobs.getBoolean(key)) enabledEntities.add(EntityType.valueOf(ukey));
+				else enabledEntities.remove(EntityType.valueOf(ukey));
+			} else if (supportedNeutralMobs.contains(EntityType.valueOf(ukey))) {
+				if (mobs.getBoolean(key)) enabledEntities.add(EntityType.valueOf(ukey));
+				else enabledEntities.remove(EntityType.valueOf(ukey));
+			} else if (supportedHostileMobs.contains(EntityType.valueOf(ukey))) {
+				if (mobs.getBoolean(key)) enabledEntities.add(EntityType.valueOf(ukey));
+				else enabledEntities.remove(EntityType.valueOf(ukey));
 			} else {
-				System.out.println("'" + key + "'" + " is not a valid mob name in config");
+				Bukkit.getServer().getConsoleSender().sendMessage("'" + key + "'" + " is not a valid mob name in config");
 			}
 		}
 	}

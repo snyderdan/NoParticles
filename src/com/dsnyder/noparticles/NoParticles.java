@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class NoParticles extends JavaPlugin {
 	
-	public static final String CURRENT_VERSION = "1.1.0";
+	public static final String CURRENT_VERSION = "1.1.1";
 	
 	static JavaPlugin main;
 	
